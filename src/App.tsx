@@ -129,6 +129,8 @@ Counterspell`;
         <div className="mt-12 text-center text-sm text-gray-500">
           <p>
             Paste your decklists from Moxfield, Archidekt, or any plain text format.
+            <br />
+            Created by Nelson Harris.
           </p>
         </div>
       </div>
