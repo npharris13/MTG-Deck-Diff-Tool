@@ -1,0 +1,139 @@
+Product Requirements Document: MTG Deck Diff Tool
+1. Product Overview
+1.1 Product Name
+MTG Deck Diff Tool
+1.2 Product Description
+A web-based application that allows Magic: The Gathering players to compare two decklists and quickly identify which cards need to be added or removed when updating their physical decks. The tool accepts plain text decklists and outputs clear, actionable lists of changes.
+1.3 Problem Statement
+Magic: The Gathering players who maintain decklists online often update their lists but lack an easy way to see what physical changes need to be made to their real-world decks. This results in time-consuming manual comparison or multiple trips to their card collection.
+1.4 Target Users
+Magic: The Gathering players, specifically Commander format players
+Players who maintain decklists online (Moxfield, Archidekt, etc.)
+Players who regularly update and iterate on their decks
+2. Functional Requirements
+2.1 Core Features
+2.1.1 Decklist Input
+Two text input areas labeled "Old Decklist" and "New Decklist"
+Support for plain text deck format (e.g., "4 Island", "1 Sol Ring")
+No character limit on input fields
+Clear visual distinction between the two input areas
+2.1.2 Deck Parsing
+Parse multiple decklist formats:
+1 Sol Ring
+1x Sol Ring
+Sol Ring x1
+Sol Ring
+Handle special characters in card names (apostrophes, commas, hyphens)
+Ignore blank lines and extra whitespace
+Case-insensitive card name matching
+Support for cards with multiple quantities (especially basic lands)
+2.1.3 Comparison Engine
+Compare parsed decklists to identify:
+Cards to add (present in new but not old, or increased quantity)
+Cards to remove (present in old but not new, or decreased quantity)
+Account for quantity changes
+Alphabetical sorting of results
+2.1.4 Results Display
+Two separate tables: "Cards to Add" and "Cards to Remove"
+Each table displays:
+Card name
+Quantity to add/remove
+Clean, readable table format
+Alphabetical ordering
+2.1.5 Copy Functionality
+"Copy All" button for each table
+Copies in plain text format: 3 Island\n1 Sol Ring
+Visual feedback when copy is successful
+2.2 User Interface Requirements
+2.2.1 Layout
+Single-page application
+Responsive design for desktop and mobile
+Input section at top, results section below
+Clear visual hierarchy
+2.2.2 Interaction Flow
+User pastes old decklist in first text area
+User pastes new decklist in second text area
+User clicks "Compare Decks" button
+Results appear below in two tables
+User can copy either list with respective copy button
+2.2.3 Visual Design
+Clean, minimal interface
+Clear labels and instructions
+Sufficient contrast for readability
+Mobile-friendly text input areas
+2.3 Error Handling
+Validate that both input fields contain text
+Handle invalid deck formats gracefully
+Display helpful error messages
+Prevent comparison if inputs are invalid
+Show format example when errors occur
+3. Technical Requirements
+3.1 Technology Stack
+Frontend Framework: React with Vite
+Styling: Tailwind CSS
+Language: JavaScript/TypeScript
+Hosting: Static site hosting (Vercel, Netlify, or GitHub Pages)
+Build Tool: Vite
+3.2 Architecture
+Client-side only application (no backend required)
+All processing happens in the browser
+No data persistence needed
+No external API dependencies
+3.3 Browser Support
+Modern browsers (Chrome, Firefox, Safari, Edge)
+Mobile browsers (iOS Safari, Chrome Mobile)
+Clipboard API support required
+4. Implementation Details
+4.1 Core Modules
+4.1.1 Parser Module
+function parseDeckList(deckText) {
+  // Returns object: { "Card Name": quantity, ... }
+  // Handles various formats and edge cases
+}
+
+4.1.2 Comparison Module
+function compareDecklists(oldDeck, newDeck) {
+  // Returns: { toAdd: {}, toRemove: {} }
+  // Each object maps card names to quantities
+}
+
+4.1.3 Copy Module
+function copyToClipboard(cardList) {
+  // Formats and copies card list to clipboard
+  // Shows success/failure feedback
+}
+
+4.2 Data Structures
+Deck representation: { [cardName: string]: number }
+Comparison result: { toAdd: Deck, toRemove: Deck }
+5. Non-Functional Requirements
+5.1 Performance
+Instant parsing and comparison (< 100ms for typical decks)
+Smooth UI interactions
+Minimal bundle size
+5.2 Usability
+Intuitive interface requiring no instructions
+Clear error messages
+Accessible to colorblind users
+Keyboard navigation support
+5.3 Compatibility
+Works with exports from major deckbuilding sites
+No installation required
+No account/login required
+6. Success Metrics
+Time to complete a deck comparison < 30 seconds
+Zero backend costs
+Works on 95%+ of standard decklist formats
+Positive user feedback on usability
+7. Acceptance Criteria
+[ ] Can parse standard decklist formats
+[ ] Correctly identifies cards to add/remove
+[ ] Handles quantity changes accurately
+[ ] Copy buttons work on all major browsers
+[ ] Responsive on mobile devices
+[ ] Clear error messages for invalid input
+[ ] Alphabetical sorting of results
+[ ] No external dependencies or API calls
+[ ] Page loads in under 2 seconds
+[ ] Works offline after initial load
+
